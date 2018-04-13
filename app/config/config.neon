@@ -25,7 +25,9 @@ database:
 
 services:
 	- App\Model\UserManager
+	- App\Model\ExpressionParser
 	- App\Forms\FormFactory
+	- App\Forms\ExpressionFormFactory
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
