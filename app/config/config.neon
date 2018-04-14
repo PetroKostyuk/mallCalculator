@@ -26,6 +26,8 @@ database:
 services:
 	- App\Model\UserManager
 	- App\Model\ExpressionParser
+	- App\Model\FormRenderSetupProvider
+	- App\Model\FormRenderSetupMaterialize
 	- App\Forms\FormFactory
 	- App\Forms\ExpressionFormFactory
 	- App\Forms\SignInFormFactory

@@ -1,16 +1,39 @@
+{extends '../@layout-materialize.latte'}
+
 {block content}
 
-<pre>
-Zadání úlohy:
+    <div class="row"></div>
 
-Kalkulačka
-• Stáhněte aktuální Nette\Sandbox přes composer
-• Vytvořte Presenter, který bude dostupný na URL /test-issue s tím, že presenter bude umět přijímat jeden nepovinný parametr value, který může obsahovat jakýkoliv znak.
-• Vytvořte komponentu, která bude obsahovat formulář s textareou a submit tlačítkem, po odeslání formuláře dojde k spočítání příkladu a vypsání výsledku. Pokud nebude parameter value prázdný, tak provedete obdobnou akci jako při odeslání formuláře.
-• Výstupem bude správný výsledek výrazu. Algoritmus bude podporovat součet (+), rozdíl (-) a závorky (neomezený počet zanoření). Vyhodnocení výrazu musí provést váš algoritmus, nikoliv PHP (pomocí eval()) ani žádná externí služba.
-o Příklad vstupu: 1 + (4 - (3 + 2)) - 8
-</pre>
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Zadání úlohy</div>
+            <div class="collapsible-body">
+                <p>Stáhněte aktuální Nette\Sandbox přes composer</p>
+                <p>Vytvořte Presenter, který bude dostupný na URL /test-issue s tím, že presenter bude umět přijímat jeden nepovinný parametr value, který může obsahovat jakýkoliv znak.</p>
+                <p>Vytvořte komponentu, která bude obsahovat formulář s textareou a submit tlačítkem, po odeslání formuláře dojde k spočítání příkladu a vypsání výsledku. Pokud nebude parameter value prázdný, tak provedete obdobnou akci jako při odeslání formuláře.</p>
+                <p>Výstupem bude správný výsledek výrazu. Algoritmus bude podporovat součet (+), rozdíl (-) a závorky (neomezený počet zanoření). Vyhodnocení výrazu musí provést váš algoritmus, nikoliv PHP (pomocí eval()) ani žádná externí služba.</p>
+                <p>Příklad vstupu: 1 + (4 - (3 + 2)) - 8</p>
+            </div>
+        </li>
+    </ul>
 
-{control expressionForm}
+    <div class="row">
+        <div class="col s12 z-depth-1">
+
+            <div class="row" n:if="isset($expressionResult)">
+                <div class="col s12 green lighten-1">
+                    <p>Result of your expression: {$expressionResult}</p>
+                </div>
+            </div>
+
+            <div class="row" n:if="isset($expressionError)">
+                <div class="col s12 orange lighten-2">
+                    <p>Error: {$expressionError}</p>
+                </div>
+            </div>
+
+            {control expressionForm}
+        </div>
+    </div>
 
 {/block}

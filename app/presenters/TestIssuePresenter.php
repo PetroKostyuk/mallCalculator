@@ -18,6 +18,7 @@ class TestIssuePresenter extends BasePresenter
 
     public function __construct(ExpressionFormFactory $expressionFormFactory, ExpressionParser $expressionParser)
     {
+        parent::__construct();
         $this->expressionFormFactory = $expressionFormFactory;
         $this->expressionParser = $expressionParser;
     }
@@ -44,20 +45,17 @@ class TestIssuePresenter extends BasePresenter
         $values = $form->getValues();
         $expressionString = $values->expression;
         $this->displayExpressionStringResult($expressionString);
-
-        $this->redirect('Default');
     }
 
     private function displayExpressionStringResult(string $expressionString){
         try{
             $expression = $this->expressionParser->parseExpressionString($expressionString);
         }catch (ExpressionParseException $exception){
-            $this->flashMessage('There was an error while parsing your expression: ' . $exception->getMessage());
+            $this->template->expressionError = $exception->getMessage();
             return;
         }
 
-        $value = $expression->getValue();
-        $this->flashMessage($value);
+        $this->template->expressionResult = $expression->getValue();
     }
 
 
