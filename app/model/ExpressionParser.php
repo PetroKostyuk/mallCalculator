@@ -122,6 +122,10 @@ class ExpressionParser
      */
     private function composeExpressionPartsToExpression(array $expressionParts) : IExpression
     {
+        if(count($expressionParts) == 0){
+            throw new ExpressionParseException("Expression is empty", ExpressionParseException::COMPOSE_EMPTY_EXPRESSION);
+        }
+
         $expression = new ExpressionArray();
 
         $isNegative = false;
@@ -141,6 +145,7 @@ class ExpressionParser
                         break;
                     }
                     case '+': {
+                        $isNegative = false;
                         $lastPartType = self::PART_OPERATION;
                         break;
                     }
@@ -189,6 +194,11 @@ class ExpressionParser
                 if($parenthesisDepth > 0){
                     $subexpressionParts[] = $part;
                 }else{
+                    if(count($subexpressionParts) == 0){
+                        throw ExpressionParseException::buildFromParts("There are parenthesis with no expression inside of them",
+                            ExpressionParseException::COMPOSE_EMPTY_PARENTHESIS, $expressionParts, $i);
+                    }
+
                     $subexpression = $this->composeExpressionPartsToExpression($subexpressionParts);
 
                     // use negative decorator in case minus precedes expression
@@ -231,6 +241,8 @@ class ExpressionParseException extends \Exception {
     const COMPOSE_LEFT_PARENTHESIS_NO_MATCH = 5;
     const COMPOSE_RIGHT_PARENTHESIS_NO_MATCH = 6;
     const COMPOSE_OPERATION_ON_END = 7;
+    const COMPOSE_EMPTY_PARENTHESIS = 8;
+    const COMPOSE_EMPTY_EXPRESSION = 9;
 
     /**
      * Creates ExpressionParseException instance with highlighted place of error
@@ -268,7 +280,7 @@ class ExpressionParseException extends \Exception {
     static public function buildFromParts(string $errorMessage, int $code, array $parts, int $errorIndex){
         $message = $errorMessage . ': ';
 
-        for ($i=0; $i<sizeof($parts); $i++){
+        for ($i=0; $i<count($parts); $i++){
             if($i === $errorIndex){
                 $message .= ' *' . $parts[$i] . '*';
             }else{
