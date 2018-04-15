@@ -52,6 +52,9 @@ class TestIssuePresenter extends BasePresenter
 
     private function displayExpressionStringResult(string $expressionString)
     {
+        // in case pass expression by parameter, we still want it to be displayed in form
+        $this['expressionForm']->setDefaults(['expression' => $expressionString]);
+
         try{
             $expression = $this->expressionParser->parseExpressionString($expressionString);
         }catch (ExpressionParseException $exception){
