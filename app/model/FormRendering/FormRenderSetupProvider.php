@@ -10,15 +10,15 @@ namespace App\Model;
 
 class FormRenderSetupProvider{
 
-    /** @var \App\Model\IFormRenderSetup */
+    /** @var IFormRenderSetup */
     private $formRenderSetup;
 
-    public function __construct(\App\Model\FormRenderSetupMaterialize $formRenderSetupMaterialize)
+    public function __construct(FormRenderSetupMaterialize $formRenderSetupMaterialize)
     {
         $this->formRenderSetup = $formRenderSetupMaterialize;
     }
 
-    public function get() : \App\Model\IFormRenderSetup
+    public function get() : IFormRenderSetup
     {
         return $this->formRenderSetup;
     }

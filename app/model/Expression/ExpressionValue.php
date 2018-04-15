@@ -18,7 +18,7 @@ class ExpressionValue implements IExpression{
         $this->value = intval($expressionString);
     }
 
-    function getValue(): int
+    function getValue() : int
     {
         return $this->value;
     }

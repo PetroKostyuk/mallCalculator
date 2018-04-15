@@ -17,7 +17,7 @@ class ExpressionArray implements IExpression{
         $this->expressions[] = $expression;
     }
 
-    function getValue(): int
+    function getValue() : int
     {
         $value = 0;
 

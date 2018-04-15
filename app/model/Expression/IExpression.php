@@ -9,7 +9,9 @@
 namespace App\Model\Expression;
 
 interface IExpression{
+
     public function getValue() : int;
 
     public function toString() : string;
+
 }

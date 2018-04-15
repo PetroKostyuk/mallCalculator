@@ -32,10 +32,13 @@ class TestIssuePresenter extends BasePresenter
 		$this->template->anyVariable = 'any value';
 	}
 
-	function createComponentExpressionForm(): Form
+	function createComponentExpressionForm() : Form
     {
         $form = $this->expressionFormFactory->create();
         $form->onSuccess[] = [$this, 'processExpressionForm'];
+
+        // strip url of ?value=... parameter, or else it will override form expression result
+        $form->setAction('.');
 
         return $form;
     }
@@ -47,7 +50,8 @@ class TestIssuePresenter extends BasePresenter
         $this->displayExpressionStringResult($expressionString);
     }
 
-    private function displayExpressionStringResult(string $expressionString){
+    private function displayExpressionStringResult(string $expressionString)
+    {
         try{
             $expression = $this->expressionParser->parseExpressionString($expressionString);
         }catch (ExpressionParseException $exception){

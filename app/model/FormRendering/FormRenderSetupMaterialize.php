@@ -10,7 +10,7 @@ namespace App\Model;
 
 class FormRenderSetupMaterialize implements IFormRenderSetup{
 
-    public function setupFormRenderer(\Nette\Application\UI\Form $form): void
+    public function setupFormRenderer(\Nette\Application\UI\Form $form) : void
     {
         $renderer = $form->getRenderer();
 
