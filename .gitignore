@@ -4,4 +4,8 @@ temp/*
 !.gitignore
 !.htaccess
 !web.config
+!log/.htaccess
+!log/web.config
+!temp/.htaccess
+!temp/web.config
 app/config/config.local.neon
